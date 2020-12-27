@@ -1,6 +1,6 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="employee_Payroll" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1144,1860" sap2010:WorkflowViewState.IdRef="employee_Payroll_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="employee_Payroll" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1076,1860" sap2010:WorkflowViewState.IdRef="employee_Payroll_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="76">
+    <scg:List x:TypeArguments="x:String" Capacity="41">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -45,7 +45,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="48">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="25">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -83,11 +83,8 @@
       <Variable x:TypeArguments="x:String" Name="attachment" />
       <Variable x:TypeArguments="x:String" Name="name" />
       <Variable x:TypeArguments="x:String" Name="gmaiPass" />
-      <Variable x:TypeArguments="x:String" Name="gmailUser">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:String">intrstelr.007@gmail.com</Literal>
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="x:String" Default="intrstelr.007@gmail.com" Name="gmailUser" />
+      <Variable x:TypeArguments="scg:IEnumerable(x:String)" Name="attachmentCollect" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -196,12 +193,10 @@
               </ui:MultipleAssign.AssignOperations>
             </ui:MultipleAssign>
             <ui:GetPassword DisplayName="Get Password" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="GetPassword_1" ProtectedPassword="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAZnjYQVgxoEqkmfcSrqwZvAAAAAACAAAAAAAQZgAAAAEAACAAAAAOpNLZblTWWp4D1scLEXvviP1Hxfx9bDKIVTW/QVs/rwAAAAAOgAAAAAIAACAAAABtMFxREbsPRg6G38vaaWnCcH5a+27UFjKUOY3ZDydSFhAAAADBwg5VTk5NKmKOSS/0ixqBQAAAAAORDBsfePpLBqqMUcw/fA9hklK2I1RZ8Gnu8I9pn3RuVE/SrfTXg91uZYfbbrQ5mDLBh13L51Y1Bsu9R2yI86A=" Result="[gmaiPass]" />
-            <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[&quot;Dear&quot;+name+Environment.NewLine()+&quot;here is your montly payslip&quot; +Environment.NewLine()+&quot;Thank you&quot;]" DisplayName="Send SMTP Mail Message" Email="[gmailUser]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,145" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Password="[gmaiPass]" Port="587" SecureConnection="Auto" Server="smtp.gmail.com" Subject="Employee Payslip" To="[email]">
+            <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" AttachmentsCollection="[attachmentCollect]" Body="[&quot;Dear&quot;+name+Environment.NewLine()+&quot;here is your montly payslip&quot; +Environment.NewLine()+&quot;Thank you&quot;]" DisplayName="Send SMTP Mail Message" Email="[gmailUser]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,145" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Password="[gmaiPass]" Port="587" SecureConnection="Auto" Server="smtp.gmail.com" Subject="Employee Payslip" To="[email]">
               <ui:SendMail.Files>
                 <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
-                  <InArgument x:TypeArguments="x:String">
-                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="attachment" />
-                  </InArgument>
+                  <InArgument x:TypeArguments="x:String">[attachment]</InArgument>
                 </scg:List>
               </ui:SendMail.Files>
             </ui:SendMail>
